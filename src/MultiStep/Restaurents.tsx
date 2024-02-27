@@ -39,7 +39,7 @@ const Restaurents = () => {
           ))}
         </Select>
       </Form.Item>
-      <div className="flex absolute bottom-3 w-full flex-row justify-between items-center">
+      <div className="flex absolute bottom-0 w-full flex-row justify-between items-center">
         <Button htmlType="reset">Previous</Button>
         <Button htmlType="submit">Next</Button>
       </div>

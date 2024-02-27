@@ -23,12 +23,6 @@ const Dishes = () => {
         dishes[selectedDishes?.meal][selectedDishes?.restaurent]
       );
     }
-    if (selectedDish.length) {
-      restautentData.length < selectedDishes.people &&
-        message.error(
-          "The number of dishes is now less than the number of people"
-        );
-    }
   }, [dishes, selectedDishes.meal, selectedDishes?.restaurent]);
   const handleAddDish = () => {
     if (selectedDish.length >= 10) {
@@ -61,10 +55,11 @@ const Dishes = () => {
         className="!w-full mx-auto"
         initialValues={{ quantity: 1 }}
         onFinish={() => {
-          if (selectedDish.length < selectedDishes.people) {
-            message.error("Please add a dish");
-            return;
-          }
+            const totalSelectedDishes = selectedDish.reduce((total, dish) => total + dish.quantity, 0);
+            if (totalSelectedDishes < selectedDishes.people) {
+              message.error("The number of servings should be equal or more than the number of people");
+              return
+            }
           setSelectedDishes({ ...selectedDishes, selectedDish });
           nextStep();
         }}
@@ -73,9 +68,9 @@ const Dishes = () => {
           prevStep();
         }}
       >
-        <div className="w-fit mx-auto">
-          <Form.Item name="dishSelect" label="dish">
-            <Select placeholder="Select a dish" className="!w-auto">
+        <div className="w-fit mx-auto text-left">
+          <Form.Item name="dishSelect" label="Please select a dish">
+            <Select placeholder="Select a dish" className="!w-fit min-w-[150px]">
               {restautentData.map((dish: Dish) => (
                 <Option key={dish.id} value={dish.name}>
                   {dish.name}
@@ -86,15 +81,14 @@ const Dishes = () => {
 
           <Form.Item
             name="quantity"
-            label="Quantity"
+            label="Please enter number of servings"
             className="text-left"
             rules={[
               { required: true, message: "Please select a quantity" },
               {
                 type: "number",
                 min: 1,
-                max: 10,
-                message: "Please select a quantity between 1 and 10",
+                message: "Please select a quantity more than or equal 1",
               },
             ]}
           >
@@ -108,7 +102,7 @@ const Dishes = () => {
         >
           <PlusOutlined />
         </Button>
-        <ul className="!w-fit mx-auto">
+        <ul className="!w-fit mx-auto" >
           {selectedDish.map((dish: SelectedDish, index: number) => (
             <li className="!text-left" key={index}>
               {dish.name} - {dish.quantity}
@@ -116,7 +110,7 @@ const Dishes = () => {
           ))}
         </ul>
 
-        <div className="flex absolute bottom-3 w-full flex-row justify-between items-center mt-10">
+        <div className="flex absolute bottom-0 w-full flex-row justify-between items-center mt-10">
           <Button htmlType="reset">Previous</Button>
           <Button htmlType="submit">Next</Button>
         </div>

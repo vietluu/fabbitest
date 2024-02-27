@@ -21,7 +21,7 @@ const AvailableMeals = () => {
           label="Please select a meal"
           rules={[{ required: true, message: 'Please select a meal' }]}
         >
-          <Select className='!w-fit' placeholder='Select a meal'>
+          <Select className='!w-auto' placeholder='Select a meal'>
             {Object.keys(dishes || {}).map((meal) => (
               <Select.Option key={meal} value={meal}>
                 {meal}
@@ -46,7 +46,7 @@ const AvailableMeals = () => {
         >
           <InputNumber min={1} max={10} />
         </Form.Item></div>
-            <Button className=' absolute bottom-3 right-3' htmlType="submit">Next</Button>
+            <Button className=' absolute bottom-0 right-3' htmlType="submit">Next</Button>
       </Form>
     );
 }

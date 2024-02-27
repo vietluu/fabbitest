@@ -26,7 +26,6 @@ const renderStep = (step: number) => {
 const MutilStepOrder = () => {
   const [step, setStep] = useState(0);
   const [selectedDishes, setSelectedDishes] = useState({});
-  const [order, setOrder] = useState({});
   const [dishes, setDishes] = useState<Type.GroupedData | null>(null);
 
   useLayoutEffect(() => {
