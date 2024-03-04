@@ -52,7 +52,7 @@ const Dishes = () => {
       <Form
         form={form}
         layout="vertical"
-        className="!w-full mx-auto"
+        className="!w-full h-full mx-auto flex flex-col"
         initialValues={{ quantity: 1 }}
         onFinish={() => {
             const totalSelectedDishes = selectedDish.reduce((total, dish) => total + dish.quantity, 0);
@@ -68,7 +68,8 @@ const Dishes = () => {
           prevStep();
         }}
       >
-        <div className="w-fit mx-auto text-left">
+        <div className="flex-auto h-full">
+        <div className="w-fit  mx-auto text-left">
           <Form.Item name="dishSelect" label="Please select a dish">
             <Select placeholder="Select a dish" className="!w-fit min-w-[150px]">
               {restautentData.map((dish: Dish) => (
@@ -93,7 +94,8 @@ const Dishes = () => {
             ]}
           >
             <InputNumber min={1} max={10} />
-          </Form.Item>
+            </Form.Item>
+            
         </div>
         <Button
           type="default"
@@ -101,7 +103,7 @@ const Dishes = () => {
           onClick={handleAddDish}
         >
           <PlusOutlined />
-        </Button>
+        </Button>       
         <ul className="!w-fit mx-auto" >
           {selectedDish.map((dish: SelectedDish, index: number) => (
             <li className="!text-left" key={index}>
@@ -110,7 +112,8 @@ const Dishes = () => {
           ))}
         </ul>
 
-        <div className="flex absolute bottom-0 w-full flex-row justify-between items-center mt-10">
+       </div>
+        <div className="flex flex-auto mt-5 h-fit w-full flex-row justify-between items-center">
           <Button htmlType="reset">Previous</Button>
           <Button htmlType="submit">Next</Button>
         </div>
